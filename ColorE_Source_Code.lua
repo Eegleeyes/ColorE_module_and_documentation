@@ -82,16 +82,20 @@ function colorE.fromRGB(R:number,G:number,B:number) -- Basically the same as col
 	setmetatable(color, colorE)
 
 	if typeof(R) == "Color3" then --Detect if first value is a number, if not, assume it's a Color3
-		color.R = R.R/255
-		color.G = G.G/255
-		color.B = B.B/255
+		color.R = R.R
+		color.G = G.G
+		color.B = B.B
 		color.color = R
 	elseif typeof(R) == "number" then
 		color.R = R/255
 		color.G = G/255
 		color.B = B/255
 		color.color = Color3.fromRGB(R,G,B)
-		
+	elseif typeof(R) == "Vector3" then
+		color.R = R.X/255
+		color.G = R.Y/255
+		color.B = R.Z/255
+		color.color = Color3.fromRGB(R.X,R.Y,R.Z)
 	else
 		return error("Color input is not valid!") -- Throw an error if it isn't a color
 	end
@@ -299,9 +303,9 @@ function colorE:mult(x)
 		G = self.G * x
 		B = self.B * x
 	elseif t == "table" then
-		R = self.R * x.R
-		G = self.G * x.G
-		B = self.B * x.B
+		R = self.R * x.color.R
+		G = self.G * x.color.G
+		B = self.B * x.color.B
 	else
 		return error("Color input is not valid!")
 	end
@@ -324,9 +328,9 @@ function colorE:div(x)
 		G = self.G / x
 		B = self.B / x
 	elseif t == "table" then
-		R = self.R / x.R
-		G = self.G / x.G
-		B = self.B / x.B
+		R = self.R / x.color.R
+		G = self.G / x.color.G
+		B = self.B / x.color.B
 	else
 		return error("Color input is not valid!")
 	end
@@ -349,9 +353,9 @@ function colorE:add(x)
 		G = self.G + x
 		B = self.B + x
 	elseif t == "table" then
-		R = self.R + x.R
-		G = self.G + x.G
-		B = self.B + x.B
+		R = self.R + x.color.R
+		G = self.G + x.color.G
+		B = self.B + x.color.B
 	else
 		return error("Color input is not valid!")
 	end
@@ -374,9 +378,9 @@ function colorE:sub(x)
 		G = self.G - x
 		B = self.B - x
 	elseif t == "table" then
-		R = self.R - x.R
-		G = self.G - x.G
-		B = self.B - x.B
+		R = self.R - x.color.R
+		G = self.G - x.color.G
+		B = self.B - x.color.B
 	else
 		return error("Color input is not valid!")
 	end
