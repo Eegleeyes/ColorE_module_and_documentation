@@ -28,7 +28,7 @@ Color3 Extended
 
 colorE.__index = colorE
 
-function colorE.new(R:number,G:number,B:number)
+function colorE.new(R:number | Color3 | Vector3,G:number?,B:number?)
 	local color = {}
 	setmetatable(color, colorE)
 	
@@ -54,7 +54,7 @@ function colorE.new(R:number,G:number,B:number)
 	return color
 end
 
-function colorE.fromHSV(Hue:number,Saturation:number,Value:number)
+function colorE.fromHSV(Hue:number | Color3 | Vector3,Saturation:number?,Value:number?)
 	local color = {}
 	setmetatable(color, colorE)
 
@@ -77,7 +77,7 @@ function colorE.fromHSV(Hue:number,Saturation:number,Value:number)
 	return color
 end
 
-function colorE.fromRGB(R:number,G:number,B:number) -- Basically the same as colorE.new()
+function colorE.fromRGB(R:number | Color3 | Vector3,G:number?,B:number?) -- Basically the same as colorE.new()
 	local color = {}
 	setmetatable(color, colorE)
 
@@ -103,7 +103,7 @@ function colorE.fromRGB(R:number,G:number,B:number) -- Basically the same as col
 	return color
 end
 
-function colorE.fromHex(Hex:string) -- Basically the same as colorE.new()
+function colorE.fromHex(Hex:string | Color3) -- Basically the same as colorE.new()
 	local color = {}
 	setmetatable(color, colorE)
 
@@ -236,7 +236,7 @@ function colorE.random()
 	return color
 end
 
-function colorE:Lerp(Color, Alpha:number)
+function colorE:Lerp(Color:Color3 | 'ColorE', Alpha:number)
 	local color
 	if typeof(Color) == "Color3" then
 		color = self.color:Lerp(Color, Alpha)
@@ -287,7 +287,7 @@ function colorE:getLuminance3()
 	return L
 end
 
-function colorE:mult(x)
+function colorE:mult(x:Color3 | Vector3 | 'ColorE')
 	local R,G,B
 	local t = typeof(x)
 	if t == "Color3" then
@@ -312,7 +312,7 @@ function colorE:mult(x)
 	return colorE.new(R,G,B)
 end
 
-function colorE:div(x)
+function colorE:div(x:Color3 | Vector3 | 'ColorE')
 	local R,G,B
 	local t = typeof(x)
 	if t == "Color3" then
@@ -337,7 +337,7 @@ function colorE:div(x)
 	return colorE.new(R,G,B)
 end
 
-function colorE:add(x)
+function colorE:add(x:number | Color3 | Vector3 | 'ColorE')
 	local R,G,B
 	local t = typeof(x)
 	if t == "Color3" then
@@ -362,7 +362,7 @@ function colorE:add(x)
 	return colorE.new(R,G,B)
 end
 
-function colorE:sub(x)
+function colorE:sub(x:number | Color3 | Vector3 | 'ColorE')
 	local R,G,B
 	local t = typeof(x)
 	if t == "Color3" then
@@ -387,7 +387,7 @@ function colorE:sub(x)
 	return colorE.new(R,G,B)
 end
 
-function colorE:invert(x)
+function colorE:invert(x:number | Color3 | Vector3 | 'ColorE')
 	local R,G,B
 	local t = typeof(x)
 	if t == "Color3" then
@@ -408,7 +408,7 @@ function colorE:invert(x)
 	return colorE.new(R,G,B)
 end
 
-function colorE:min(x,mn)
+function colorE:min(x:Color3 | Vector3 | 'ColorE',mn:number)
 	local R,G,B
 	local t = typeof(x)
 	if t == "Color3" then
@@ -429,7 +429,7 @@ function colorE:min(x,mn)
 	return colorE.new(R,G,B)
 end
 
-function colorE:max(x,mx)
+function colorE:max(x:Color3 | Vector3 | 'ColorE',mx:number)
 	local R,G,B
 	local t = typeof(x)
 	if t == "Color3" then
@@ -450,7 +450,7 @@ function colorE:max(x,mx)
 	return colorE.new(R,G,B)
 end
 
-function colorE:range(x,mn,mx)
+function colorE:range(x:Color3 | Vector3 | 'ColorE',mn:number,mx:number)
 	return colorE:max(colorE:min(x,mn),mx)
 end
 
